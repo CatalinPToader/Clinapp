@@ -54,6 +54,9 @@ class LoginActivity : AppCompatActivity() {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
                         val user = auth.currentUser
+
+                        // TODO: Set up firebase to check user type
+                        // TODO: Send to appropriate screen
                         if (user != null) {
                             updateUiWithUser(user)
                         }

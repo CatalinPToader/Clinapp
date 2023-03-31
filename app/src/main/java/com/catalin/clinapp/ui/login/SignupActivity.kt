@@ -37,7 +37,7 @@ class SignupActivity : AppCompatActivity() {
             loading.visibility = View.VISIBLE
 
             //TODO: Check if fields are empty
-
+            //TODO: Set up firebase to add user data
 
             auth.createUserWithEmailAndPassword(username.text.toString(), password.text.toString())
                 .addOnCompleteListener(this) { task ->
