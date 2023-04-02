@@ -18,4 +18,6 @@
     <string name="new_appt">Make an Appointment</string>
     <string name="chk_appt">Check Appointments</string>
     <string name="signup_text">Create New Account</string>
+    <string name="splash_text">This is a splash screen.</string>
+    <string name="log_out">Log Out</string>
 </resources>
