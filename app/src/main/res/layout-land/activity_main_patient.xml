@@ -18,8 +18,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintGuide_percent="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="VisualLintBounds" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/hello_message"
@@ -30,7 +29,7 @@
         android:textSize="60sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideMain"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1" />
@@ -39,34 +38,32 @@
         android:id="@+id/user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:maxEms="10"
-        android:maxLines="3"
+        android:maxLines="1"
         android:text="@string/placeholder"
         android:textColor="#007AFB"
         android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="@+id/hello_message"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/hello_message"
-        app:layout_constraintTop_toBottomOf="@+id/hello_message" />
+        app:layout_constraintStart_toEndOf="@+id/hello_message" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="0dp"
-        android:layout_marginStart="-4dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="-4dp"
-        android:layout_marginBottom="32dp"
-        android:paddingHorizontal="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constrainedWidth="false"
         app:layout_constraintBottom_toTopOf="@+id/patientSignOutBttn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_max="500dp"
+        app:layout_constraintHeight_max="300dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/user_name"
         app:layout_constraintVertical_bias="1.0"
-        app:layout_constraintWidth_max="610dp">
+        app:layout_constraintWidth_max="800dp">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -77,69 +74,75 @@
             app:layout_constraintGuide_percent="0.5"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.25"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.75"
+            app:layout_constraintStart_toStartOf="parent" />
+
         <Button
             android:id="@+id/apptButton"
             style="@style/ButtonGridStyle"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="128dp"
             android:drawableBottom="@android:drawable/ic_menu_month"
             android:text="@string/new_appt"
-            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintHeight_max="140dp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintWidth_max="280dp" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/chkApptButton"
             style="@style/ButtonGridStyle"
-            android:layout_height="0dp"
+            android:layout_height="128dp"
             android:drawableBottom="@drawable/appt_icon"
             android:text="@string/chk_appt"
-            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="140dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintWidth_max="280dp" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/dummyBttn1"
             style="@style/ButtonGridStyle"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="128dp"
             android:drawableBottom="@android:drawable/ic_menu_month"
             android:text="@string/placeholder"
-            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintHeight_max="140dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/apptButton"
+            app:layout_constraintEnd_toStartOf="@+id/guideline3"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintWidth_max="280dp"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
         <Button
             android:id="@+id/dummyBttn2"
             style="@style/ButtonGridStyle"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="128dp"
             android:drawableBottom="@android:drawable/ic_menu_month"
             android:text="@string/placeholder"
-            android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_max="140dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/chkApptButton"
+            app:layout_constraintStart_toStartOf="@+id/guideline3"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:layout_constraintWidth_max="280dp"
             tools:ignore="DuplicateSpeakableTextCheck" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -148,12 +151,12 @@
         android:id="@+id/patientSignOutBttn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="16dp"
         android:drawableEnd="@drawable/baseline_logout_24"
         android:text="@string/log_out"
-        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_min="64dp"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
