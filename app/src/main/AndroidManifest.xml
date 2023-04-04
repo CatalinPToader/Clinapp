@@ -23,7 +23,7 @@
         </activity>
         <activity android:name=".ui.login.LoginActivity" />
         <activity android:name=".ui.login.SignupActivity" />
-        <activity android:name=".ui.main.PatientMainActivity" />
+        <activity android:name=".ui.main.MainActivity" />
     </application>
 
 </manifest>

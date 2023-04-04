@@ -11,10 +11,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.catalin.clinapp.data.User
 import com.catalin.clinapp.databinding.ActivitySignupBinding
+import com.catalin.clinapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.auth.ktx.userProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -88,21 +88,11 @@ class SignupActivity : AppCompatActivity() {
                         Log.d(TAG, "createUserWithEmail:success")
                         val user = auth.currentUser
 
-                        val profileUpdates = userProfileChangeRequest {
-                            displayName = nameString
-                        }
+                        database.child("users").child(user!!.uid).setValue(dataUser)
 
-                        user!!.updateProfile(profileUpdates)
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    Log.d(TAG, "User profile updated.")
-                                }
-                            }
-
-                        database.child("users").child(user.uid).setValue(dataUser)
-
-                        val intent = Intent(this, LoginActivity::class.java)
+                        val intent = Intent(this, MainActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        intent.putExtra("com.catalin.clinapp.dataUser", dataUser)
                         startActivity(intent)
                         finish()
                     } else {

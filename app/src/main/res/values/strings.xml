@@ -16,8 +16,13 @@
     <string name="placeholder">Placeholder</string>
     <string name="make_appointment">Make Appointment</string>
     <string name="new_appt">Make an Appointment</string>
-    <string name="chk_appt">Check Appointments</string>
+    <string name="chk_appt">Check Your Appointment</string>
     <string name="signup_text">Create New Account</string>
     <string name="splash_text">This is a splash screen.</string>
-    <string name="log_out">Log Out</string>
+    <string name="log_out">Sign Out</string>
+    <string name="review_text">Review Past Appointment</string>
+    <string name="your_docs">Your Documents</string>
+    <string name="set_hours">Set Office Hours</string>
+    <string name="chck_reviews">Check Reviews</string>
+    <string name="patients">Patients</string>
 </resources>

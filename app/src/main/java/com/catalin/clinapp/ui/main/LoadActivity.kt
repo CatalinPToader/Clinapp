@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.catalin.clinapp.data.User
 import com.catalin.clinapp.databinding.ActivitySplashBinding
 import com.catalin.clinapp.ui.login.LoginActivity
-import com.catalin.clinapp.ui.login.SignupActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -42,15 +41,10 @@ class LoadActivity: AppCompatActivity() {
         database.child("users").child(user!!.uid).get().addOnSuccessListener {
             dataUser = it.getValue<User>()!!
             Log.d("firebase", "Retrieved data: $dataUser")
-            if (dataUser.type == "Patient") {
-                val intent = Intent(this, PatientMainActivity::class.java)
-                intent.putExtra("com.catalin.clinapp.dataUser", dataUser)
-                startActivity(intent)
-            } else {
-                val intent = Intent(this, SignupActivity::class.java)
-                intent.putExtra("com.catalin.clinapp.dataUser", dataUser)
-                startActivity(intent)
-            }
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("com.catalin.clinapp.dataUser", dataUser)
+            startActivity(intent)
+            finish()
         }.addOnFailureListener{
             Log.e("firebase", "Error getting data", it)
             sendToLogin()

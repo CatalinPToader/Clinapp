@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.catalin.clinapp.data.User
 import com.catalin.clinapp.databinding.ActivityLoginBinding
-import com.catalin.clinapp.ui.main.PatientMainActivity
+import com.catalin.clinapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -28,7 +28,8 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-        database = Firebase.database("https://eim-clinapp-default-rtdb.europe-west1.firebasedatabase.app").reference
+        database =
+            Firebase.database("https://eim-clinapp-default-rtdb.europe-west1.firebasedatabase.app").reference
 
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -44,9 +45,11 @@ class LoginActivity : AppCompatActivity() {
             val passString = password.text.toString()
             if (TextUtils.isEmpty(emailString) || TextUtils.isEmpty(passString)) {
 
-                val snack = Snackbar.make(loading,
+                val snack = Snackbar.make(
+                    loading,
                     "Please enter email and password",
-                    Snackbar.LENGTH_LONG)
+                    Snackbar.LENGTH_LONG
+                )
                 snack.setTextColor(Color.RED)
                 snack.show()
 
@@ -70,14 +73,16 @@ class LoginActivity : AppCompatActivity() {
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("login", "sign in failure", task.exception)
-                        Toast.makeText(baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            baseContext, "Authentication failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                         loading.visibility = View.GONE
                     }
                 }
         }
 
-        signup.setOnClickListener{
+        signup.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
         }
@@ -87,17 +92,13 @@ class LoginActivity : AppCompatActivity() {
         database.child("users").child(user.uid).get().addOnSuccessListener {
             val dataUser = it.getValue<User>()
             if (dataUser != null) {
-                if (dataUser.type == "Patient") {
-                    val intent = Intent(this, PatientMainActivity::class.java)
-                    intent.putExtra("com.catalin.clinapp.dataUser", dataUser)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Log.w("data", "Type is: " + dataUser.type)
-                }
+                val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("com.catalin.clinapp.dataUser", dataUser)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                startActivity(intent)
+                finish()
             }
-        }.addOnFailureListener{
+        }.addOnFailureListener {
             Log.e("firebase", "Error getting data", it)
         }
     }
