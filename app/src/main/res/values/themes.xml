@@ -14,5 +14,8 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/white</item>
         <item name="android:textColorHint">#4B4C50</item>
+        <item name="itemColor">@color/element_day</item>
+        <item name="trackColorInactive">@color/element_night</item>
+        <item name="trackColorActive">#007AFF</item>
     </style>
 </resources>

@@ -25,4 +25,13 @@
     <string name="set_hours">Set Office Hours</string>
     <string name="chck_reviews">Check Reviews</string>
     <string name="patients">Patients</string>
+    <string name="dayText">Someday</string>
+    <string name="placeholderHours">xx:xx-yy:yy</string>
+    <string name="office_text">Your Office Hours</string>
+    <string name="sliderText">\"Time Range Picker\"</string>
+    <string name="switch_text">Switch for activating scheduled time</string>
+    <string-array name="rangeSliderValues">
+        <item>8</item>
+        <item>16</item>
+    </string-array>
 </resources>

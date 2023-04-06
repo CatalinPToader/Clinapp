@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="@string/signup_text"
         android:textAlignment="center"
-        android:textColor="#007AFB"
+        android:textColor="@color/text_color"
         android:textIsSelectable="false"
         android:textSize="50sp"
         android:textStyle="bold"

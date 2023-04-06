@@ -55,7 +55,7 @@
         android:maxEms="10"
         android:maxLines="1"
         android:text="@string/placeholder"
-        android:textColor="#007AFB"
+        android:textColor="@color/text_color"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="@+id/hello_message"
         app:layout_constraintEnd_toEndOf="parent"

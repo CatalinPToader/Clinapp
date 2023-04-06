@@ -14,5 +14,8 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">#E2202020</item>
         <item name="android:textColorHint">#BFBFBF</item>
+        <item name="itemColor">@color/element_night</item>
+        <item name="trackColorInactive">@color/element_day</item>
+        <item name="trackColorActive">#007AFF</item>
     </style>
 </resources>

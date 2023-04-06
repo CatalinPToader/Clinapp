@@ -18,7 +18,7 @@
         android:layout_marginTop="-8dp"
         android:text="@string/signup_text"
         android:textAlignment="center"
-        android:textColor="#007AFB"
+        android:textColor="@color/text_color"
         android:textIsSelectable="false"
         android:textSize="40sp"
         android:textStyle="bold"

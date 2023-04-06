@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="4dp">
+
+    <ImageView
+        android:id="@+id/backgroundBig"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/hoursSlider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="0dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/rounded_bg"
+        app:tint="?attr/itemColor"
+        tools:ignore="ContentDescription,ImageContrastCheck"
+        tools:visibility="visible" />
+
+    <com.google.android.material.slider.RangeSlider
+        android:id="@+id/hoursSlider"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:contentDescription="@string/sliderText"
+        android:stepSize="0.5"
+        android:valueFrom="7"
+        android:valueTo="23"
+        android:visibility="gone"
+        app:labelBehavior="gone"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundSmall"
+        app:layout_constraintStart_toStartOf="@+id/backgroundSmall"
+        app:layout_constraintTop_toBottomOf="@+id/hoursText"
+        app:values="@array/rangeSliderValues"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/backgroundSmall"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_max="150dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/rounded_bg"
+        app:tint="?attr/itemColor"
+        tools:ignore="ContentDescription,ImageContrastCheck"
+        tools:visibility="invisible" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/daySwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:contentDescription="@string/switch_text"
+        android:switchPadding="0dp"
+        android:thumb="@drawable/thumb_selector"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundSmall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backgroundSmall"
+        app:switchMinWidth="80dp"
+        app:track="@drawable/track_selector"
+        tools:checked="true" />
+
+    <TextView
+        android:id="@+id/dayText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/dayText"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundSmall"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/backgroundSmall"
+        app:layout_constraintTop_toTopOf="@+id/backgroundSmall"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/hoursText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/placeholderHours"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/dayText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/dayText"
+        app:layout_constraintTop_toBottomOf="@+id/dayText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

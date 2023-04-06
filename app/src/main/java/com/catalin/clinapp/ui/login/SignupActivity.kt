@@ -77,6 +77,16 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if (passString.length < 8) {
+                val snack = Snackbar.make(loading,
+                    "Password must be at least 8 characters.",
+                    Snackbar.LENGTH_LONG)
+                snack.setTextColor(Color.RED)
+                snack.show()
+
+                return@setOnClickListener
+            }
+
             val dataUser = User(nameString, emailString, phoneString)
 
             loading.visibility = View.VISIBLE
@@ -97,7 +107,7 @@ class SignupActivity : AppCompatActivity() {
                         finish()
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                        Log.w(TAG, "sign up failure", task.exception)
                         Toast.makeText(baseContext, "Failed to create account.",
                             Toast.LENGTH_SHORT).show()
                         loading.visibility = View.GONE
