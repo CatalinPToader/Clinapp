@@ -1,6 +1,5 @@
 package com.catalin.clinapp.functional
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,11 @@ import android.widget.TextView
 import androidx.appcompat.widget.SwitchCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.catalin.clinapp.R
+import com.catalin.clinapp.data.Schedule
 import com.google.android.material.slider.RangeSlider
-import com.google.android.material.snackbar.Snackbar
 
 
-class DayAdapter : RecyclerView.Adapter<DayAdapter.ViewHolder>() {
-    private val days =
-        arrayOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+class DayAdapter(private val schedule: Schedule) : RecyclerView.Adapter<DayAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val dayName: TextView
@@ -47,19 +44,23 @@ class DayAdapter : RecyclerView.Adapter<DayAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.dayName.text = days[position]
-        setHoursText(holder.slider, holder)
+        holder.dayName.text = schedule.days[position].name
+        holder.slider.values = listOf(
+            getValueFromTimeString(schedule.days[position].timeStart!!),
+            getValueFromTimeString(schedule.days[position].timeEnd!!)
+        )
+
+        val hoursText = schedule.days[position].timeStart + '-' + schedule.days[position].timeEnd
+
+        holder.hoursSelected.text = hoursText
+
+        holder.switch.isChecked = schedule.days[position].active!!
+
         holder.slider.addOnChangeListener(RangeSlider.OnChangeListener { slider, _, _ ->
-            setHoursText(slider, holder)
+            setHoursText(slider, holder, position)
         })
         holder.switch.setOnClickListener {
-            val snack = Snackbar.make(
-                holder.switch,
-                "Didn't save settings yet",
-                Snackbar.LENGTH_LONG
-            )
-            snack.setTextColor(Color.BLUE)
-            snack.show()
+            schedule.days[position].active = holder.switch.isChecked
         }
         holder.bgSmall.setOnClickListener {
             it.visibility = View.INVISIBLE
@@ -73,22 +74,39 @@ class DayAdapter : RecyclerView.Adapter<DayAdapter.ViewHolder>() {
         }
     }
 
-    private fun setHoursText(slider: RangeSlider, holder: ViewHolder) {
+    private fun setHoursText(slider: RangeSlider, holder: ViewHolder, position: Int) {
         val start = slider.values[0]
         val end = slider.values[1]
-        val sb = StringBuilder()
-        sb.append(start.toInt()).append(':')
-        if (start % 1.0 > 1e-3)
-            sb.append("30")
-        else
-            sb.append("00")
-        sb.append('-')
-        sb.append(end.toInt()).append(':')
-        if (end % 1.0 > 1e-3)
-            sb.append("30")
-        else
-            sb.append("00")
+        val startStr = StringBuilder()
+        val endStr = StringBuilder()
 
-        holder.hoursSelected.text = sb.toString()
+        buildHourString(start, startStr)
+        buildHourString(end, endStr)
+
+        schedule.days[position].timeStart = startStr.toString()
+        schedule.days[position].timeEnd = endStr.toString()
+
+        holder.hoursSelected.text = startStr.append('-').append(endStr).toString()
+    }
+
+    private fun buildHourString(start: Float, startStr: StringBuilder) {
+        val intRep = start.toInt()
+
+        if (intRep < 100)
+            startStr.append("0")
+        startStr.append(intRep / 10).append(':')
+        if (intRep % 10 > 0)
+            startStr.append("30")
+        else
+            startStr.append("00")
+    }
+
+    private fun getValueFromTimeString(time: String): Float {
+        val splits = time.split(":", limit = 2)
+        var timeFloat = splits[0].toFloat() * 10
+        if (splits[1].toInt() > 0)
+            timeFloat += 5
+
+        return timeFloat
     }
 }
