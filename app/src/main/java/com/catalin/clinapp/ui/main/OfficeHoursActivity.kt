@@ -39,6 +39,7 @@ class OfficeHoursActivity : AppCompatActivity() {
 
         val user = auth.currentUser!!
         val saveButton = binding.saveBttn
+        val loading = binding.loadingHours
 
         database.child("schedules").child(user.uid).get().addOnSuccessListener {
             if (it.getValue<DataSchedule>() != null) {
@@ -57,6 +58,8 @@ class OfficeHoursActivity : AppCompatActivity() {
                 recyclerView.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
 
                 recyclerView.adapter = DayAdapter(schedule)
+                recyclerView.visibility = View.VISIBLE
+                loading.visibility = View.GONE
             } else {
                 dataFail(saveButton, false)
             }
