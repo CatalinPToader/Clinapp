@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "502074770455",
+    "project_id": "eim-clinapp",
+    "storage_bucket": "eim-clinapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:502074770455:android:0ba65cf22c91e799c1c852",
+        "android_client_info": {
+          "package_name": "com.catalin.clinapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "502074770455-mu490hc4kbr3pdkmatrf3dhjtbkhra8f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrNIDNq34MuiqiQUeVIOyC3AZ4VQnkFEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "502074770455-mu490hc4kbr3pdkmatrf3dhjtbkhra8f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
