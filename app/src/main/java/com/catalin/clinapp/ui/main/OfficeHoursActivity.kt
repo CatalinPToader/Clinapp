@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.catalin.clinapp.R
 import com.catalin.clinapp.data.DataSchedule
 import com.catalin.clinapp.data.Schedule
 import com.catalin.clinapp.databinding.ActivityOfficeHoursBinding
@@ -28,6 +30,14 @@ class OfficeHoursActivity : AppCompatActivity() {
     private var schedule = Schedule()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val callback = object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finish()
+                overridePendingTransition(R.anim.sit, R.anim.implode)
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, callback)
 
         auth = Firebase.auth
 
@@ -63,7 +73,7 @@ class OfficeHoursActivity : AppCompatActivity() {
             } else {
                 dataFail(saveButton, false)
             }
-        }.addOnFailureListener{
+        }.addOnFailureListener {
             Log.e("firebase", "Error getting data", it)
             dataFail(saveButton, false)
         }
@@ -73,12 +83,14 @@ class OfficeHoursActivity : AppCompatActivity() {
             database.child("schedules").child(user.uid).get().addOnSuccessListener {
                 savedSchedule = Schedule(it.getValue<DataSchedule>()!!)
                 schedule.setCompareSchedule(savedSchedule!!)
-            }.addOnFailureListener{
+            }.addOnFailureListener {
                 Log.e("firebase", "Error getting data", it)
                 dataFail(saveButton, true)
             }
             saveButton.visibility = View.GONE
         }
+
+
     }
 
     private fun dataFail(saveButton: Button, showSnack: Boolean) {

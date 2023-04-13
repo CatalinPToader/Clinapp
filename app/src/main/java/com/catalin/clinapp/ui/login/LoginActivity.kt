@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.catalin.clinapp.R
 import com.catalin.clinapp.data.User
 import com.catalin.clinapp.databinding.ActivityLoginBinding
 import com.catalin.clinapp.ui.main.MainActivity
@@ -85,6 +86,7 @@ class LoginActivity : AppCompatActivity() {
         signup.setOnClickListener {
             val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
     }
 
@@ -96,6 +98,7 @@ class LoginActivity : AppCompatActivity() {
                 intent.putExtra("com.catalin.clinapp.dataUser", dataUser)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down)
                 finish()
             }
         }.addOnFailureListener {

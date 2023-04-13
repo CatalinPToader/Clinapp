@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.catalin.clinapp.R
 import com.catalin.clinapp.data.User
 import com.catalin.clinapp.databinding.ActivityMainBinding
 import com.catalin.clinapp.ui.login.LoginActivity
@@ -51,7 +52,8 @@ class MainActivity : AppCompatActivity() {
             }
 
         val userName = binding.userName
-        userName.text = dataUser.name
+        val name = dataUser.first_name + " " + dataUser.last_name
+        userName.text = name
 
         val signout = binding.signOutBttn
         signout.setOnClickListener {
@@ -59,6 +61,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up)
             finish()
         }
     }

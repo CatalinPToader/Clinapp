@@ -27,6 +27,7 @@ class MedicButtonFragment : Fragment(R.layout.fragment_medic_button) {
         apptBttn.setOnClickListener {
             val intent = Intent(activity, OfficeHoursActivity::class.java)
             startActivity(intent)
+            activity?.overridePendingTransition(R.anim.explode, R.anim.sit)
         }
         return binding.root
     }

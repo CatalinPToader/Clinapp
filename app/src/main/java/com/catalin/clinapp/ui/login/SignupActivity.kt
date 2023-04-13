@@ -8,7 +8,9 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import com.catalin.clinapp.R
 import com.catalin.clinapp.data.User
 import com.catalin.clinapp.databinding.ActivitySignupBinding
 import com.catalin.clinapp.ui.main.MainActivity
@@ -27,6 +29,15 @@ class SignupActivity : AppCompatActivity() {
     @Suppress("NAME_SHADOWING")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val callback = object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finish()
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
+            }
+        }
+        onBackPressedDispatcher.addCallback(this, callback)
+
+
         auth = Firebase.auth
         database = Firebase.database("https://eim-clinapp-default-rtdb.europe-west1.firebasedatabase.app").reference
 
@@ -45,7 +56,6 @@ class SignupActivity : AppCompatActivity() {
         signup.setOnClickListener {
             val emailString = email.text.toString()
             val passString = password.text.toString()
-            val nameString = firstName.text.toString() + " " + lastName.text.toString()
             val phoneString = phone.text.toString()
             if (TextUtils.isEmpty(emailString) || TextUtils.isEmpty(passString)) {
                 val snack = Snackbar.make(loading,
@@ -79,7 +89,7 @@ class SignupActivity : AppCompatActivity() {
 
             if (passString.length < 8) {
                 val snack = Snackbar.make(loading,
-                    "Password must be at least 8 characters.",
+                    "Password must be at least 8 characters",
                     Snackbar.LENGTH_LONG)
                 snack.setTextColor(Color.RED)
                 snack.show()
@@ -87,7 +97,17 @@ class SignupActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val dataUser = User(nameString, emailString, phoneString)
+            if (!emailString.contains('@')) {
+                val snack = Snackbar.make(loading,
+                    "Please enter a valid email",
+                    Snackbar.LENGTH_LONG)
+                snack.setTextColor(Color.RED)
+                snack.show()
+
+                return@setOnClickListener
+            }
+
+            val dataUser = User(firstName.text.toString(), lastName.text.toString(), emailString, phoneString)
 
             loading.visibility = View.VISIBLE
 
@@ -104,6 +124,7 @@ class SignupActivity : AppCompatActivity() {
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         intent.putExtra("com.catalin.clinapp.dataUser", dataUser)
                         startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_down, R.anim.slide_out_down)
                         finish()
                     } else {
                         // If sign in fails, display a message to the user.
