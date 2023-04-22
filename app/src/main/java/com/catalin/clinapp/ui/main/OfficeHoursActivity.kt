@@ -57,6 +57,25 @@ class OfficeHoursActivity : AppCompatActivity() {
         val saveButton = binding.saveBttn
         val loading = binding.loadingHours
 
+        scope.launch {
+            var repeat = 1
+            while (true) {
+                delay(5000L * repeat)
+                if (!loaded) {
+                    val toast = Toast.makeText(
+                        baseContext,
+                        "Network is slow or unreachable.\nYou can wait or try again later.",
+                        Toast.LENGTH_SHORT
+                    )
+                    toast.duration = Toast.LENGTH_LONG
+                    toast.show()
+                    repeat++
+                } else {
+                    break
+                }
+            }
+        }
+
         database.child("schedules").child(user.uid).get().addOnSuccessListener {
             if (it.getValue<DataSchedule>() != null) {
                 schedule = Schedule(it.getValue<DataSchedule>()!!)
@@ -97,17 +116,6 @@ class OfficeHoursActivity : AppCompatActivity() {
             saveButton.visibility = View.GONE
         }
 
-        scope.launch {
-            delay(5000L)
-            if (!loaded) {
-                val toast = Toast.makeText(
-                    baseContext, "Network is slow or unreachable.\nYou can wait or try again later.",
-                    Toast.LENGTH_SHORT
-                )
-                toast.duration = Toast.LENGTH_LONG
-                toast.show()
-            }
-        }
     }
 
 

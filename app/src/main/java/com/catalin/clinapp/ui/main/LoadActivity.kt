@@ -29,12 +29,13 @@ class LoadActivity : AppCompatActivity() {
     private var conn by Delegates.notNull<Boolean>()
     private val scope =
         CoroutineScope(Job() + Dispatchers.Main)
-    private var job : Job? = null
+    private var job: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-        database = Firebase.database("https://eim-clinapp-default-rtdb.europe-west1.firebasedatabase.app")
+        database =
+            Firebase.database("https://eim-clinapp-default-rtdb.europe-west1.firebasedatabase.app")
 
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -54,6 +55,8 @@ class LoadActivity : AppCompatActivity() {
         Log.d("load", "Got user: $user")
 
         database.reference.child("users").child(user!!.uid).get().addOnSuccessListener {
+            if (job?.isCompleted == true)
+                return@addOnSuccessListener
             job?.cancel()
             dataUser = it.getValue<User>()!!
             Log.d("firebase", "Retrieved data: $dataUser")
