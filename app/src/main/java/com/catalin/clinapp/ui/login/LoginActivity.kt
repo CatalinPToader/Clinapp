@@ -13,6 +13,7 @@ import com.catalin.clinapp.data.User
 import com.catalin.clinapp.databinding.ActivityLoginBinding
 import com.catalin.clinapp.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -61,24 +62,32 @@ class LoginActivity : AppCompatActivity() {
 
             auth.signInWithEmailAndPassword(emailString, passString)
                 .addOnCompleteListener(this) { task ->
+                    loading.visibility = View.GONE
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("login", "signed in")
-                        val user = auth.currentUser
-
-                        if (user != null) {
-                            updateUiWithUser(user)
-                        }
-
-                        loading.visibility = View.GONE
+                        val user = auth.currentUser!!
+                        loginUser(user)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("login", "sign in failure", task.exception)
-                        Toast.makeText(
-                            baseContext, "Authentication failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        loading.visibility = View.GONE
+                        try {
+                            throw task.exception!!
+                        } catch(e: FirebaseNetworkException) {
+                            Toast.makeText(
+                                baseContext, "Authentication failed due to network errors.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } catch (e: java.lang.Exception) {
+                            if (auth.currentUser != null) {
+                                loginUser(auth.currentUser!!)
+                            } else {
+                                Toast.makeText(
+                                    baseContext, "Authentication failed.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
                     }
                 }
         }
@@ -90,7 +99,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateUiWithUser(user: FirebaseUser) {
+    private fun loginUser(user: FirebaseUser) {
         database.child("users").child(user.uid).get().addOnSuccessListener {
             val dataUser = it.getValue<User>()
             if (dataUser != null) {

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.*
 
 class OfficeHoursActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOfficeHoursBinding
@@ -28,10 +30,14 @@ class OfficeHoursActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private var savedSchedule: Schedule? = null
     private var schedule = Schedule()
+    private var loaded = false
+    private val scope =
+        CoroutineScope(Job() + Dispatchers.Main)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val callback = object: OnBackPressedCallback(true) {
+        val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 finish()
                 overridePendingTransition(R.anim.sit, R.anim.implode)
@@ -70,6 +76,7 @@ class OfficeHoursActivity : AppCompatActivity() {
                 recyclerView.adapter = DayAdapter(schedule)
                 recyclerView.visibility = View.VISIBLE
                 loading.visibility = View.GONE
+                loaded = true
             } else {
                 dataFail(saveButton, false)
             }
@@ -90,8 +97,19 @@ class OfficeHoursActivity : AppCompatActivity() {
             saveButton.visibility = View.GONE
         }
 
-
+        scope.launch {
+            delay(5000L)
+            if (!loaded) {
+                val toast = Toast.makeText(
+                    baseContext, "Network is slow or unreachable.\nYou can wait or try again later.",
+                    Toast.LENGTH_SHORT
+                )
+                toast.duration = Toast.LENGTH_LONG
+                toast.show()
+            }
+        }
     }
+
 
     private fun dataFail(saveButton: Button, showSnack: Boolean) {
         if (showSnack) {
